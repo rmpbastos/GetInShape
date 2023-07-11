@@ -18,6 +18,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.w3c.dom.Text;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +29,18 @@ public class MainActivity extends AppCompatActivity {
     TextView foodTextView;
     TextView servingSizeTextView;
     TextView calorieTextView;
+    TextView dateTextView;
     EditText editText;
     Button button;
 
     private String query;
-
     private ArrayList<Food> foodList;
 
+
     private RequestQueue queue;
+
+    //Set up date format to be displayed
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         foodTextView = findViewById(R.id.food_textView);
         servingSizeTextView = findViewById(R.id.serving_size_textView);
         calorieTextView = findViewById(R.id.calorie_textView);
+        dateTextView = findViewById(R.id.date_textView);
         editText = findViewById(R.id.food_editText);
         button = findViewById(R.id.food_button);
 
@@ -58,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 fetchFood(query);
             }
         });
-
-
     }
 
     private void fetchFood(String query) {
@@ -94,15 +99,17 @@ public class MainActivity extends AppCompatActivity {
                         String name = foodArray[0];
                         double serving_size_g = Double.parseDouble(foodArray[2]);
                         double calories = Double.parseDouble(foodArray[1]);
+                        LocalDateTime localDateTimeNow = LocalDateTime.now();
 
                         //Create a Food object instance
-                        Food food = new Food(name, serving_size_g, calories);
+                        Food food = new Food(localDateTimeNow, name, serving_size_g, calories);
                         foodList.add(food);
 
                         //Display data
-                        foodTextView.setText(name);
-                        servingSizeTextView.setText(String.valueOf(serving_size_g));
-                        calorieTextView.setText(String.valueOf(calories));
+                        dateTextView.setText(dateTimeFormatter.format(food.getLocalDateTime()));
+                        foodTextView.setText(food.getName());
+                        servingSizeTextView.setText(String.valueOf(food.getServing_size_g()));
+                        calorieTextView.setText(String.valueOf(food.getCalories()));
 
                     }
                 }, new Response.ErrorListener() {
