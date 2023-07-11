@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     Button button;
 
-    String query;
+    private String query;
 
-    RequestQueue queue;
+    private ArrayList<Food> foodList;
+
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Get input from user
                 query = editText.getText().toString();
+                foodList = new ArrayList<>();
                 fetchFood(query);
             }
         });
@@ -87,9 +91,18 @@ public class MainActivity extends AppCompatActivity {
                             foodArray[i] = value;
                         }
 
-                        foodTextView.setText(foodArray[0]);
-                        servingSizeTextView.setText(foodArray[2]);
-                        calorieTextView.setText(foodArray[1]);
+                        String name = foodArray[0];
+                        double serving_size_g = Double.parseDouble(foodArray[2]);
+                        double calories = Double.parseDouble(foodArray[1]);
+
+                        //Create a Food object instance
+                        Food food = new Food(name, serving_size_g, calories);
+                        foodList.add(food);
+
+                        //Display data
+                        foodTextView.setText(name);
+                        servingSizeTextView.setText(String.valueOf(serving_size_g));
+                        calorieTextView.setText(String.valueOf(calories));
 
                     }
                 }, new Response.ErrorListener() {

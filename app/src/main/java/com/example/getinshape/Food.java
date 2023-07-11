@@ -3,10 +3,10 @@ package com.example.getinshape;
 public class Food {
 
     private String name;
-    private int serving_size_g;
+    private double serving_size_g;
     private double calories;
 
-    public Food(String name, int serving_size_g, double calories) {
+    public Food(String name, double serving_size_g, double calories) {
         this.name = name;
         this.serving_size_g = serving_size_g;
         this.calories = calories;
@@ -20,11 +20,11 @@ public class Food {
         this.name = name;
     }
 
-    public int getServing_size_g() {
+    public double getServing_size_g() {
         return serving_size_g;
     }
 
-    public void setServing_size_g(int serving_size_g) {
+    public void setServing_size_g(double serving_size_g) {
         this.serving_size_g = serving_size_g;
     }
 
