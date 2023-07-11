@@ -16,12 +16,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
+    TextView foodTextView;
+    TextView servingSizeTextView;
+    TextView calorieTextView;
     EditText editText;
     Button button;
 
@@ -36,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(this);
 
-        textView = findViewById(R.id.food_textView);
+        foodTextView = findViewById(R.id.food_textView);
+        servingSizeTextView = findViewById(R.id.serving_size_textView);
+        calorieTextView = findViewById(R.id.calorie_textView);
         editText = findViewById(R.id.food_editText);
         button = findViewById(R.id.food_button);
 
@@ -81,13 +87,15 @@ public class MainActivity extends AppCompatActivity {
                             foodArray[i] = value;
                         }
 
-                        textView.setText(foodArray[0]);
+                        foodTextView.setText(foodArray[0]);
+                        servingSizeTextView.setText(foodArray[2]);
+                        calorieTextView.setText(foodArray[1]);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                textView.setText("We got an error, please try again");
+                foodTextView.setText("We got an error, please try again");
             }
         }) {
             @Override
