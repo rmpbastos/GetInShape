@@ -3,6 +3,9 @@ package com.example.getinshape;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +22,10 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
+    EditText editText;
+    Button button;
+
+    String query;
 
     RequestQueue queue;
 
@@ -27,17 +34,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById((R.id.food_textView));
-
         queue = Volley.newRequestQueue(this);
 
-        fetchFood();
+        textView = findViewById(R.id.food_textView);
+        editText = findViewById(R.id.food_editText);
+        button = findViewById(R.id.food_button);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get input from user
+                query = editText.getText().toString();
+                fetchFood(query);
+            }
+        });
+
+
     }
 
-    private void fetchFood() {
+    private void fetchFood(String query) {
 
         //URL provided by the API
-        String url = "https://api.calorieninjas.com/v1/nutrition?query=cheese";
+        String url = "https://api.calorieninjas.com/v1/nutrition?query=" + query;
 
         //Request a String response from the provided URL
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
