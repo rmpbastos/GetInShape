@@ -47,4 +47,14 @@ public class Food {
     public void setCalories(double calories) {
         this.calories = calories;
     }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "localDateTime=" + localDateTime +
+                ", name='" + name + '\'' +
+                ", serving_size_g=" + serving_size_g +
+                ", calories=" + calories +
+                '}';
+    }
 }

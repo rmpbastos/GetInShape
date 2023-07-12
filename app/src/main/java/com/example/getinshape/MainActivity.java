@@ -1,7 +1,10 @@
 package com.example.getinshape;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,16 +28,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView foodTextView, servingSizeTextView, calorieTextView,
+    private TextView foodTextView, servingSizeTextView, calorieTextView,
             dateTextView;
-    EditText editText;
-    Button search_button, add_button;
-
-    //DELETE
-    TextView test_tv;
+    private EditText editText;
+    private Button search_button, add_button;
+    private ConstraintLayout mainPageLayout;
 
     private String query;
-    private ArrayList<Food> foodList;
+    private ArrayList<Food> foodList = new ArrayList<>();
 
     String name;
     double serving_size_g;
@@ -58,17 +59,19 @@ public class MainActivity extends AppCompatActivity {
         servingSizeTextView = findViewById(R.id.serving_size_textView);
         calorieTextView = findViewById(R.id.calorie_textView);
         dateTextView = findViewById(R.id.date_textView);
+
         editText = findViewById(R.id.food_editText);
+
         search_button = findViewById(R.id.food_button);
         add_button = findViewById(R.id.add_button);
-        test_tv = findViewById(R.id.test_tv);
+
+        mainPageLayout = findViewById(R.id.main_page_layout);
 
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Get input from user
                 query = editText.getText().toString();
-                foodList = new ArrayList<>();
                 fetchFood(query);
             }
         });
@@ -124,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
+                                //Add the food searched to the user diary
                                 addToDiary(name, serving_size_g, calories, localDateTimeNow);
                             }
                         });
@@ -153,10 +157,19 @@ public class MainActivity extends AppCompatActivity {
         Food food = new Food(localDateTimeNow, name, serving_size_g, calories);
         foodList.add(food);
 
+        //Save food object using SharedPreferences
+        saveData();
+
         //Display success message
         Toast.makeText(MainActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
 
-        test_tv.setText(food.getName());
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
 
     }
 }
