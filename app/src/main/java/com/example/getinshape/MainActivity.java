@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -67,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         add_button = findViewById(R.id.add_button);
 
         mainPageLayout = findViewById(R.id.main_page_layout);
+
+        //Load data from Activity Level shared preferences
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
 
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,19 +165,35 @@ public class MainActivity extends AppCompatActivity {
         //Save food object using SharedPreferences
         saveData();
 
+        //Open DiaryActivity
+        openDiaryActivity();
+
         //Display success message
         Toast.makeText(MainActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
 
     }
 
-    private void saveData() {
+    public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Gson gson = new Gson();
-        String json = gson.toJson(foodList);
-
-        editor.putString("food_list", json);
+        editor.putString("food_name", name);
+        editor.putString("food_serving", String.valueOf(serving_size_g));
+        editor.putString("food_calories", String.valueOf(calories));
+        editor.putString("food_date", String.valueOf(localDateTimeNow));
         editor.apply();
+
+//        Gson gson = new Gson();
+//        String json = gson.toJson(foodList);
+//
+//        editor.putString("food_list", json);
+//        editor.apply();
     }
+
+    public void openDiaryActivity() {
+        Intent intent = new Intent(this, DiaryActivity.class);
+        startActivity(intent);
+    }
+
+
 }
