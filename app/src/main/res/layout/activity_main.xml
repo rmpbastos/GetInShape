@@ -34,7 +34,7 @@
         android:id="@+id/food_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Food"
+        android:text="Search Food"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="318dp" />
+        app:layout_constraintGuide_begin="273dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -127,5 +127,33 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/calorie_textView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Diary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.456" />
+
+    <TextView
+        android:id="@+id/test_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

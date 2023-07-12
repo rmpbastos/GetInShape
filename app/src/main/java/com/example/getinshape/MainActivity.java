@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -16,8 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,15 +25,21 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView foodTextView;
-    TextView servingSizeTextView;
-    TextView calorieTextView;
-    TextView dateTextView;
+    TextView foodTextView, servingSizeTextView, calorieTextView,
+            dateTextView;
     EditText editText;
-    Button button;
+    Button search_button, add_button;
+
+    //DELETE
+    TextView test_tv;
 
     private String query;
     private ArrayList<Food> foodList;
+
+    String name;
+    double serving_size_g;
+    double calories;
+    LocalDateTime localDateTimeNow;
 
 
     private RequestQueue queue;
@@ -54,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
         calorieTextView = findViewById(R.id.calorie_textView);
         dateTextView = findViewById(R.id.date_textView);
         editText = findViewById(R.id.food_editText);
-        button = findViewById(R.id.food_button);
+        search_button = findViewById(R.id.food_button);
+        add_button = findViewById(R.id.add_button);
+        test_tv = findViewById(R.id.test_tv);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Get input from user
@@ -78,39 +85,48 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        //String manipulation
-                        response = response.replace("{\"items\": [{", "");
-                        response = response.replace("}]}", "");
+                        try {
+                            //String manipulation
+                            response = response.replace("{\"items\": [{", "");
+                            response = response.replace("}]}", "");
 
-                        //Create a food Array
-                        String[] foodArray = new String[12];
+                            //Create a food Array
+                            String[] foodArray = new String[12];
 
-                        //Split the string by commas
-                        String elements[] = response.split(",");
+                            //Split the string by commas
+                            String elements[] = response.split(",");
 
-                        //Iterate the elements and add the values to the array
-                        for (int i = 0; i < elements.length; i++) {
-                            //Split the data by colon to separate keys and values
-                            String splitElements[] = elements[i].split(":");
-                            String value = splitElements[1].trim();
-                            foodArray[i] = value;
+                            //Iterate the elements and add the values to the array
+                            for (int i = 0; i < elements.length; i++) {
+                                //Split the data by colon to separate keys and values
+                                String splitElements[] = elements[i].split(":");
+                                String value = splitElements[1].trim();
+                                foodArray[i] = value;
+                            }
+
+                            name = foodArray[0];
+                            serving_size_g = Double.parseDouble(foodArray[2]);
+                            calories = Double.parseDouble(foodArray[1]);
+                            localDateTimeNow = LocalDateTime.now();
+
+                            //Display data
+                            foodTextView.setText(name);
+                            servingSizeTextView.setText(String.valueOf(serving_size_g));
+                            calorieTextView.setText(String.valueOf(calories));
+                            dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
                         }
 
-                        String name = foodArray[0];
-                        double serving_size_g = Double.parseDouble(foodArray[2]);
-                        double calories = Double.parseDouble(foodArray[1]);
-                        LocalDateTime localDateTimeNow = LocalDateTime.now();
+                        //Add food to diary
+                        add_button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                        //Create a Food object instance
-                        Food food = new Food(localDateTimeNow, name, serving_size_g, calories);
-                        foodList.add(food);
-
-                        //Display data
-                        dateTextView.setText(dateTimeFormatter.format(food.getLocalDateTime()));
-                        foodTextView.setText(food.getName());
-                        servingSizeTextView.setText(String.valueOf(food.getServing_size_g()));
-                        calorieTextView.setText(String.valueOf(food.getCalories()));
-
+                                addToDiary(name, serving_size_g, calories, localDateTimeNow);
+                            }
+                        });
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -128,6 +144,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Add the request to the Request Queue
         queue.add(stringRequest);
+
+    }
+
+    private void addToDiary(String name, double serving_size_g, double calories, LocalDateTime localDateTimeNow) {
+
+        //Create a Food object instance
+        Food food = new Food(localDateTimeNow, name, serving_size_g, calories);
+        foodList.add(food);
+
+        //Display success message
+        Toast.makeText(MainActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
+
+        test_tv.setText(food.getName());
 
     }
 }
