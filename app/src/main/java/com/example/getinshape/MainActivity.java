@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         mainPageLayout = findViewById(R.id.main_page_layout);
 
-        //Load data from Activity Level shared preferences
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
