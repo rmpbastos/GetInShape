@@ -6,4 +6,159 @@
     android:layout_height="match_parent"
     tools:context=".UserDetailsActivity">
 
+    <TextView
+        android:id="@+id/title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Please fill the following fields:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:text="Name:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
+    <TextView
+        android:id="@+id/age_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Age:"
+        app:layout_constraintEnd_toEndOf="@+id/name_label"
+        app:layout_constraintTop_toBottomOf="@+id/name_label" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/name_label"
+        app:layout_constraintStart_toStartOf="@+id/editTextNumber"
+        app:layout_constraintTop_toTopOf="@+id/name_label" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/age_label"
+        app:layout_constraintStart_toEndOf="@+id/age_label"
+        app:layout_constraintTop_toTopOf="@+id/age_label" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/gender_label"
+        app:layout_constraintStart_toEndOf="@+id/gender_label"
+        app:layout_constraintTop_toTopOf="@+id/gender_label" />
+
+    <TextView
+        android:id="@+id/height_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Height (cm):"
+        app:layout_constraintEnd_toEndOf="@+id/gender_label"
+        app:layout_constraintTop_toBottomOf="@+id/gender_label" />
+
+    <TextView
+        android:id="@+id/objective_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Objective"
+        app:layout_constraintEnd_toEndOf="@+id/activity_level_label"
+        app:layout_constraintTop_toBottomOf="@+id/activity_level_label" />
+
+    <TextView
+        android:id="@+id/activity_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Activity Level:"
+        app:layout_constraintEnd_toEndOf="@+id/weight_label"
+        app:layout_constraintTop_toBottomOf="@+id/weight_label" />
+
+    <EditText
+        android:id="@+id/editTextNumberDecimal2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@+id/weight_label"
+        app:layout_constraintStart_toEndOf="@+id/weight_label"
+        app:layout_constraintTop_toTopOf="@+id/weight_label" />
+
+    <TextView
+        android:id="@+id/weight_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Weight (kg):"
+        app:layout_constraintEnd_toEndOf="@+id/height_label"
+        app:layout_constraintTop_toBottomOf="@+id/height_label" />
+
+    <TextView
+        android:id="@+id/gender_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Gender:"
+        app:layout_constraintEnd_toEndOf="@+id/age_label"
+        app:layout_constraintTop_toBottomOf="@+id/age_label" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_level_label"
+        app:layout_constraintStart_toEndOf="@+id/activity_level_label"
+        app:layout_constraintTop_toTopOf="@+id/activity_level_label" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/objective_label"
+        app:layout_constraintStart_toEndOf="@+id/objective_label"
+        app:layout_constraintTop_toTopOf="@+id/objective_label" />
+
+    <EditText
+        android:id="@+id/editTextNumber2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/height_label"
+        app:layout_constraintStart_toEndOf="@+id/height_label"
+        app:layout_constraintTop_toTopOf="@+id/height_label" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
