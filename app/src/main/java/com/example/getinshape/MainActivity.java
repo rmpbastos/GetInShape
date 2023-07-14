@@ -26,7 +26,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String query;
     private ArrayList<Food> foodList = new ArrayList<>();
+
 
     String name;
     double serving_size_g;
@@ -174,11 +177,15 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+
+
         editor.putString("food_name", name);
         editor.putString("food_serving", String.valueOf(serving_size_g));
         editor.putString("food_calories", String.valueOf(calories));
         editor.putString("food_date", String.valueOf(localDateTimeNow));
         editor.apply();
+
+
 
 //        Gson gson = new Gson();
 //        String json = gson.toJson(foodList);

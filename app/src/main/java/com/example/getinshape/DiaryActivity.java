@@ -43,12 +43,16 @@ public class DiaryActivity extends AppCompatActivity {
         diaryCalories.setText(calories);
         diaryDate.setText(date);
 
-//
+
 //        Gson gson = new Gson();
 //        String json = sharedPreferences.getString("food_list", "List is not available!");
-//        ArrayList<Food> foodList = gson.fromJson(json, ArrayList.class);
+////        ArrayList<Food> foodList = gson.fromJson(json, ArrayList.class);
 //
-//        diaryFood.setText(foodList.size());
+//        System.out.println("********************************");
+//        System.out.println(json);
+//        System.out.println("********************************");
+//
+//        diaryFood.setText(json);
 
     }
 
