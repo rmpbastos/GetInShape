@@ -20,25 +20,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private TextView foodTextView, servingSizeTextView, calorieTextView,
             dateTextView;
     private EditText editText;
-    private Button search_button, add_button, open_diary_button, open_search_button;
+    private Button search_button, add_button, open_diary_button;
     private ConstraintLayout mainPageLayout;
 
     private String query;
@@ -60,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
         queue = Volley.newRequestQueue(this);
 
@@ -74,14 +70,6 @@ public class MainActivity extends AppCompatActivity {
         search_button = findViewById(R.id.food_button);
         add_button = findViewById(R.id.add_button);
         open_diary_button = findViewById(R.id.open_diary_button);
-        open_search_button = findViewById(R.id.open_search_button);
-
-        open_search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSearchActivity();
-            }
-        });
 
         mainPageLayout = findViewById(R.id.main_page_layout);
 
@@ -147,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                             dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SearchActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
                         }
 
                         //Add food to diary
@@ -159,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
                                 Boolean checkInsertData = db.insertUserData(localDateTimeNow.toString(),
                                         food_name, serving_size_g, calories);
                                 if (checkInsertData == true) {
-                                    Toast.makeText(MainActivity.this, "New entry inserted!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SearchActivity.this, "New entry inserted!", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "Sorry, entry not inserted.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SearchActivity.this, "Sorry, entry not inserted.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 //Open DiaryActivity
@@ -208,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         openDiaryActivity();
 
         //Display success message
-        Toast.makeText(MainActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SearchActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -237,11 +225,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DiaryActivity.class);
         startActivity(intent);
     }
-
-    public void openSearchActivity() {
-        Intent intent = new Intent(this, SearchActivity.class);
-        startActivity(intent);
-    }
-
-
 }

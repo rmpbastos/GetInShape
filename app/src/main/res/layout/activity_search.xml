@@ -163,14 +163,4 @@
         app:layout_constraintTop_toTopOf="@+id/add_button"
         app:layout_constraintVertical_bias="0.46" />
 
-    <Button
-        android:id="@+id/open_search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Open Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
