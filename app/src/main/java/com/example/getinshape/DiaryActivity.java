@@ -43,6 +43,11 @@ public class DiaryActivity extends AppCompatActivity {
             Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        System.out.println("*************************************");
+        System.out.println(result);
+        System.out.println("*************************************");
+
         StringBuffer buffer = new StringBuffer();
         while(result.moveToNext()) {
             buffer.append("localDateTimeNow : " + result.getString(0)+"\n");
@@ -50,11 +55,14 @@ public class DiaryActivity extends AppCompatActivity {
             buffer.append("serving : " + result.getString(2)+"\n");
             buffer.append("calories : " + result.getString(3)+"\n\n");
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(DiaryActivity.this);
-        builder.setCancelable(true);
-        builder.setTitle("User entries");
-        builder.setMessage(buffer.toString());
-        builder.show();
+
+        diaryFood.setText(buffer.toString());
+
+//        AlertDialog.Builder builder = new AlertDialog.Builder(DiaryActivity.this);
+//        builder.setCancelable(true);
+//        builder.setTitle("User entries");
+//        builder.setMessage(buffer.toString());
+//        builder.show();
 
 
 
@@ -65,7 +73,7 @@ public class DiaryActivity extends AppCompatActivity {
 
 
 
-
+//UNUSED CODE
 //        //Load data from shared preferences file
 //
 //        SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
