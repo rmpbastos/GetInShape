@@ -1,49 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DiaryActivity">
+    tools:context=".DiaryActivity" >
 
-    <TextView
-        android:id="@+id/diary_food"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="59dp"
-        android:text="TextView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/diary_serving"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/diary_food"
-        app:layout_constraintStart_toStartOf="@+id/diary_food"
-        app:layout_constraintTop_toBottomOf="@+id/diary_food" />
-
-    <TextView
-        android:id="@+id/diary_calories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/diary_serving"
-        app:layout_constraintStart_toStartOf="@+id/diary_serving"
-        app:layout_constraintTop_toBottomOf="@+id/diary_serving" />
-
-    <TextView
-        android:id="@+id/diary_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/diary_calories"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/diary_calories"
-        app:layout_constraintTop_toBottomOf="@+id/diary_calories" />
 </androidx.constraintlayout.widget.ConstraintLayout>
