@@ -22,6 +22,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     DBHelper db;
 
 
-    String name;
+    String food_name;
     double serving_size_g;
     double calories;
     LocalDateTime localDateTimeNow;
@@ -125,15 +127,15 @@ public class MainActivity extends AppCompatActivity {
                                 foodArray[i] = value;
                             }
 
-                            name = foodArray[0];
+                            food_name = foodArray[0];
                             serving_size_g = Double.parseDouble(foodArray[2]);
                             calories = Double.parseDouble(foodArray[1]);
                             localDateTimeNow = LocalDateTime.now();
 
                             //Display data
-                            foodTextView.setText(name);
-                            servingSizeTextView.setText(String.valueOf(serving_size_g));
-                            calorieTextView.setText(String.valueOf(calories));
+                            foodTextView.setText(StringUtils.capitalize(food_name.replace("\"", "")));
+                            servingSizeTextView.setText(String.valueOf(serving_size_g) + " g");
+                            calorieTextView.setText(String.valueOf(calories) + " kcal");
                             dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
                         } catch (NullPointerException e) {
                             e.printStackTrace();
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 //Insert the food searched into the database
                                 Boolean checkInsertData = db.insertUserData(localDateTimeNow.toString(),
-                                        name, serving_size_g, calories);
+                                        food_name, serving_size_g, calories);
                                 if (checkInsertData == true) {
                                     Toast.makeText(MainActivity.this, "New entry inserted!", Toast.LENGTH_SHORT).show();
                                 } else {
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                                //Add the food searched to the user diary
-//                                addToDiary(name, serving_size_g, calories, localDateTimeNow);
+//                                addToDiary(food_name, serving_size_g, calories, localDateTimeNow);
                             }
                         });
                     }
@@ -208,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        editor.putString("food_name", name);
+        editor.putString("food_name", food_name);
         editor.putString("food_serving", String.valueOf(serving_size_g));
         editor.putString("food_calories", String.valueOf(calories));
         editor.putString("food_date", String.valueOf(localDateTimeNow));

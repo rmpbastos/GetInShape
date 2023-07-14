@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create Table user_diary(local_date_time TEXT primary key, food_name TEXT, " +
-                "serving_size_g REAL, calories REAL)");
+                "serving_size_g FLOAT, calories FLOAT)");
     }
 
     @Override
@@ -65,4 +65,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("Select * from user_diary", null);
         return cursor;
     }
+
+    //Get total calorie intake
+    public Cursor getCalorieIntake() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select sum(calories) from user_diary", null);
+        return cursor;
+    }
+
 }

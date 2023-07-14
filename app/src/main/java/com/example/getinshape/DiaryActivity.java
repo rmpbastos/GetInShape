@@ -27,7 +27,8 @@ public class DiaryActivity extends AppCompatActivity {
 
 //    Adapter adapter;
 
-    private TextView diaryFood, diaryServing, diaryCalories, diaryDate;
+//    private TextView diaryFood, diaryServing, diaryCalories, diaryDate;
+    private TextView calories_eaten_today;
 
 
 
@@ -53,7 +54,11 @@ public class DiaryActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        calories_eaten_today = findViewById(R.id.calories_eaten_today);
+
         loadData();
+
+        loadCalorieIntake();
     }
 
     public void loadData() {
@@ -95,12 +100,6 @@ public class DiaryActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
 //UNUSED CODE
 //        //Load data from shared preferences file
 //
@@ -118,9 +117,6 @@ public class DiaryActivity extends AppCompatActivity {
 
 
 
-
-
-
 //UNUSED CODE
 //        Gson gson = new Gson();
 //        String json = sharedPreferences.getString("food_list", "List is not available!");
@@ -133,5 +129,20 @@ public class DiaryActivity extends AppCompatActivity {
 //        diaryFood.setText(json);
 
     }
+
+    private void loadCalorieIntake() {
+        //Retrieve the data from the database
+        Cursor result = db.getCalorieIntake();
+        if(result.getCount() == 0) {
+            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            while(result.moveToNext()) {
+                calories_eaten_today.setText(result.getString(0));
+            }
+        }
+    }
+
 
 }
