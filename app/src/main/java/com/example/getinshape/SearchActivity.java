@@ -38,7 +38,6 @@ public class SearchActivity extends AppCompatActivity {
     private ConstraintLayout mainPageLayout;
 
     private String query;
-    private ArrayList<Food> foodList = new ArrayList<>();
 
     DBHelper db;
 
@@ -154,13 +153,6 @@ public class SearchActivity extends AppCompatActivity {
 
                                 //Open DiaryActivity
                                 openDiaryActivity();
-
-
-
-
-
-//                                //Add the food searched to the user diary
-//                                addToDiary(food_name, serving_size_g, calories, localDateTimeNow);
                             }
                         });
                     }
@@ -181,44 +173,6 @@ public class SearchActivity extends AppCompatActivity {
         //Add the request to the Request Queue
         queue.add(stringRequest);
 
-    }
-
-    private void addToDiary(String name, double serving_size_g, double calories, LocalDateTime localDateTimeNow) {
-
-        //Create a Food object instance
-        Food food = new Food(localDateTimeNow, name, serving_size_g, calories);
-        foodList.add(food);
-
-        //Save food object using SharedPreferences
-        saveData();
-
-        //Open DiaryActivity
-        openDiaryActivity();
-
-        //Display success message
-        Toast.makeText(SearchActivity.this, "Food added to diary!", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-
-
-        editor.putString("food_name", food_name);
-        editor.putString("food_serving", String.valueOf(serving_size_g));
-        editor.putString("food_calories", String.valueOf(calories));
-        editor.putString("food_date", String.valueOf(localDateTimeNow));
-        editor.apply();
-
-
-
-//        Gson gson = new Gson();
-//        String json = gson.toJson(foodList);
-//
-//        editor.putString("food_list", json);
-//        editor.apply();
     }
 
     public void openDiaryActivity() {
