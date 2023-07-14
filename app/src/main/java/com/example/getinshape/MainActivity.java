@@ -22,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,17 +42,18 @@ public class MainActivity extends AppCompatActivity {
     private String query;
     private ArrayList<Food> foodList = new ArrayList<>();
 
+    DBHelper db;
+
 
     String name;
     double serving_size_g;
     double calories;
     LocalDateTime localDateTimeNow;
 
-
-    private RequestQueue queue;
-
     //Set up date format to be displayed
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         add_button = findViewById(R.id.add_button);
 
         mainPageLayout = findViewById(R.id.main_page_layout);
+
+        db = new DBHelper(this);
 
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,8 +136,24 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
 
-                                //Add the food searched to the user diary
-                                addToDiary(name, serving_size_g, calories, localDateTimeNow);
+                                //Insert the food searched into the database
+                                Boolean checkInsertData = db.insertUserData(localDateTimeNow.toString(),
+                                        name, serving_size_g, calories);
+                                if (checkInsertData == true) {
+                                    Toast.makeText(MainActivity.this, "New entry inserted!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Sorry, entry not inserted.", Toast.LENGTH_SHORT).show();
+                                }
+
+                                //Open DiaryActivity
+                                openDiaryActivity();
+
+
+
+
+
+//                                //Add the food searched to the user diary
+//                                addToDiary(name, serving_size_g, calories, localDateTimeNow);
                             }
                         });
                     }
