@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create Table user_diary(local_date_time TEXT primary key, food_name TEXT, " +
-                "serving_size_g FLOAT, calories FLOAT)");
+                "serving_size_g NUMERIC(8,2), calories NUMERIC(8,2))");
     }
 
     @Override
