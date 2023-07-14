@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView foodTextView, servingSizeTextView, calorieTextView,
             dateTextView;
     private EditText editText;
-    private Button search_button, add_button;
+    private Button search_button, add_button, open_diary_button;
     private ConstraintLayout mainPageLayout;
 
     private String query;
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         search_button = findViewById(R.id.food_button);
         add_button = findViewById(R.id.add_button);
+        open_diary_button = findViewById(R.id.open_diary_button);
 
         mainPageLayout = findViewById(R.id.main_page_layout);
 
@@ -82,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
                 //Get input from user
                 query = editText.getText().toString();
                 fetchFood(query);
+            }
+        });
+
+        open_diary_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Open DiaryActivity
+                openDiaryActivity();
             }
         });
     }
