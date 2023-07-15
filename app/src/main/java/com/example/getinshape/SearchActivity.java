@@ -41,7 +41,6 @@ public class SearchActivity extends AppCompatActivity {
 
     DBHelper db;
 
-
     String food_name;
     double serving_size_g;
     double calories;

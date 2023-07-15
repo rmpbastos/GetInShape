@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">GetInShape</string>
+    <string name="please_fill_the_following_fields_with_your_information">Please fill the following fields with your information</string>
+    <string name="name">Name:</string>
+    <string name="age">Age:</string>
+    <string name="height_cm">Height (cm):</string>
+    <string name="objective">Objective</string>
+    <string name="activity_level">Activity Level:</string>
+    <string name="weight_kg">Weight (kg):</string>
+    <string name="gender">Gender:</string>
+    <string name="_50g_of_cheese">50g of cheese</string>
+    <string name="search_food">Search Food</string>
+    <string name="food_name">Name:</string>
+    <string name="calories">Calories:</string>
+    <string name="serving_size_g">Serving size (g):</string>
+    <string name="date_added">Date added:</string>
+    <string name="add_to_diary">Add to Diary</string>
+    <string name="open_diary">Open Diary</string>
+    <string name="open_diary_main">Open Diary</string>
+    <string name="open_search_main">Search Food</string>
+    <string name="user_details_main">User Details</string>
+    <string name="welcome_to_get_in_shape">Welcome to Get In Shape!</string>
+    <string name="your_target">Your Target:</string>
+    <string name="today">TODAY</string>
+    <string name="consumed">Consumed:</string>
+    <string name="remaining">Remaining:</string>
+
+    <string-array name="txtGender">
+        <item>Female</item>
+        <item>Male</item>
+    </string-array>
+
+    <string-array name="txtActivityLevel">
+        <item>Sedentary</item>
+        <item>Lightly Active</item>
+        <item>Moderately Active</item>
+        <item>Very Active</item>
+        <item>Extremely Active</item>
+    </string-array>
+
+    <string-array name="txtObjective">
+        <item>Maintain Weight</item>
+        <item>Lose Weight</item>
+        <item>Gain Weight</item>
+
+    </string-array>
+
+
 </resources>

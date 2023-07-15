@@ -43,8 +43,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//        String food_testing = StringUtils.capitalize(String.valueOf(food_id.get(position)).replace("\"", ""));
-//        holder.food_id.setText(food_testing);
         holder.food_id.setText(StringUtils.capitalize(String.valueOf(food_id.get(position)).replace("\"", "")));
         holder.serving_id.setText(String.valueOf(serving_id.get(position)) + " g");
         holder.calories_id.setText(String.valueOf(calories_id.get(position)) + " kcal");

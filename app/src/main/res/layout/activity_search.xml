@@ -5,6 +5,7 @@
     android:id="@+id/main_page_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background2_faded"
     tools:context=".SearchActivity">
 
     <TextView
@@ -24,19 +25,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/_50g_of_cheese"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/food_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search Food"
+        android:text="@string/search_food"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/food_editText" />
@@ -47,7 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:text="Name:"
+        android:text="@string/food_name"
+        android:textColor="#616161"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
@@ -57,7 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:text="Calories:"
+        android:text="@string/calories"
+        android:textColor="#616161"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -93,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
-        android:text="Serving size (g):"
+        android:text="@string/serving_size_g"
+        android:textColor="#616161"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -115,7 +123,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:text="Date added:"
+        android:text="@string/date_added"
+        android:textColor="#616161"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -141,7 +150,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Add to Diary"
+        android:text="@string/add_to_diary"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +167,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Open Diary"
+        android:text="@string/open_diary"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/add_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"

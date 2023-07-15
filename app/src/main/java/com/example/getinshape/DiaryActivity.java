@@ -22,13 +22,16 @@ public class DiaryActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> food_name, serving_size, calories, timestamp;
     DBHelper db;
+
+    DBHelperUser dbUser;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
 
-//    Adapter adapter;
 
 //    private TextView diaryFood, diaryServing, diaryCalories, diaryDate;
-    private TextView calories_eaten_today;
+    private TextView calorie_targetTV, calories_eaten_todayTV, calories_remainingTV;
+
+    private String calorie_target_str, calories_eaten_str;
 
 
 
@@ -37,12 +40,8 @@ public class DiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-//        diaryFood = findViewById(R.id.diary_food);
-//        diaryServing = findViewById(R.id.diary_serving);
-//        diaryCalories = findViewById(R.id.diary_calories);
-//        diaryDate = findViewById(R.id.diary_date);
-
         db = new DBHelper(this);
+        dbUser = new DBHelperUser(this);
         food_name = new ArrayList<>();
         serving_size = new ArrayList<>();
         calories = new ArrayList<>();
@@ -54,11 +53,19 @@ public class DiaryActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        calories_eaten_today = findViewById(R.id.calories_eaten_today);
+        calories_eaten_todayTV = findViewById(R.id.calories_eaten_todayTV);
+        calorie_targetTV = findViewById(R.id.calorie_targetTV);
+        calories_remainingTV = findViewById(R.id.calories_remainingTV);
 
         loadData();
 
         loadCalorieIntake();
+
+        loadRecommendedIntake();
+
+        double calories_remaining = Double.parseDouble(calorie_target_str) - Double.parseDouble(calories_eaten_str);
+        String calories_remaining_str = String.format("%.2f", calories_remaining);
+        calories_remainingTV.setText(calories_remaining_str);
     }
 
     public void loadData() {
@@ -77,57 +84,6 @@ public class DiaryActivity extends AppCompatActivity {
                 calories.add(result.getString(3));
             }
         }
-
-
-
-
-//        StringBuffer buffer = new StringBuffer();
-//        while(result.moveToNext()) {
-//            buffer.append("localDateTimeNow : " + result.getString(0)+"\n");
-//            buffer.append("food : " + result.getString(1)+"\n");
-//            buffer.append("serving : " + result.getString(2)+"\n");
-//            buffer.append("calories : " + result.getString(3)+"\n\n");
-//        }
-//
-//        diaryFood.setText(buffer.toString());
-
-//        AlertDialog.Builder builder = new AlertDialog.Builder(DiaryActivity.this);
-//        builder.setCancelable(true);
-//        builder.setTitle("User entries");
-//        builder.setMessage(buffer.toString());
-//        builder.show();
-
-
-
-
-//UNUSED CODE
-//        //Load data from shared preferences file
-//
-//        SharedPreferences sharedPreferences = getSharedPreferences("food_file", Context.MODE_PRIVATE);
-//
-//        String name = sharedPreferences.getString("food_name", "Name is not available!");
-//        String serving = sharedPreferences.getString("food_serving", "Serving is not available!");
-//        String calories = sharedPreferences.getString("food_calories", "Calories not available!");
-//        String date = sharedPreferences.getString("food_date", "Date not available!");
-//
-//        diaryFood.setText(name);
-//        diaryServing.setText(serving);
-//        diaryCalories.setText(calories);
-//        diaryDate.setText(date);
-
-
-
-//UNUSED CODE
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("food_list", "List is not available!");
-////        ArrayList<Food> foodList = gson.fromJson(json, ArrayList.class);
-//
-//        System.out.println("********************************");
-//        System.out.println(json);
-//        System.out.println("********************************");
-//
-//        diaryFood.setText(json);
-
     }
 
     private void loadCalorieIntake() {
@@ -139,7 +95,23 @@ public class DiaryActivity extends AppCompatActivity {
         }
         else {
             while(result.moveToNext()) {
-                calories_eaten_today.setText(result.getString(0));
+                calories_eaten_todayTV.setText(result.getString(0));
+                calories_eaten_str = result.getString(0);
+            }
+        }
+    }
+
+    private void  loadRecommendedIntake() {
+        //Retrieve the data from the database
+        Cursor result = dbUser.getUserRecommendedIntake();
+        if(result.getCount() == 0) {
+            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            while(result.moveToNext()) {
+                calorie_targetTV.setText(result.getString(0));
+                calorie_target_str = result.getString(0);
             }
         }
     }

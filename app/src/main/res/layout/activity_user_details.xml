@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background2_faded"
     tools:context=".UserDetailsActivity">
 
     <TextView
@@ -12,13 +13,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Please fill the following fields:"
+        android:text="@string/please_fill_the_following_fields_with_your_information"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/name_label"
@@ -26,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="64dp"
-        android:text="Name:"
+        android:text="@string/name"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
@@ -35,22 +39,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Age:"
+        android:text="@string/age"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/name_label"
         app:layout_constraintTop_toBottomOf="@+id/name_label" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/name_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/name_label"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumber"
-        app:layout_constraintTop_toTopOf="@+id/name_label" />
+        app:layout_constraintStart_toStartOf="@+id/age_editText"
+        app:layout_constraintTop_toTopOf="@+id/name_label"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/age_editText"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -58,23 +66,28 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/age_label"
         app:layout_constraintStart_toEndOf="@+id/age_label"
-        app:layout_constraintTop_toTopOf="@+id/age_label" />
+        app:layout_constraintTop_toTopOf="@+id/age_label"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        android:autofillHints="" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/gender_spinner"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:entries="@array/txtGender"
         app:layout_constraintBottom_toBottomOf="@+id/gender_label"
         app:layout_constraintStart_toEndOf="@+id/gender_label"
-        app:layout_constraintTop_toTopOf="@+id/gender_label" />
+        app:layout_constraintTop_toTopOf="@+id/gender_label"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/height_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Height (cm):"
+        android:text="@string/height_cm"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/gender_label"
         app:layout_constraintTop_toBottomOf="@+id/gender_label" />
 
@@ -83,7 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Objective"
+        android:text="@string/objective"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/activity_level_label"
         app:layout_constraintTop_toBottomOf="@+id/activity_level_label" />
 
@@ -92,12 +106,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Activity Level:"
+        android:text="@string/activity_level"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/weight_label"
         app:layout_constraintTop_toBottomOf="@+id/weight_label" />
 
     <EditText
-        android:id="@+id/editTextNumberDecimal2"
+        android:id="@+id/weight_editText"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -105,14 +120,17 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="@+id/weight_label"
         app:layout_constraintStart_toEndOf="@+id/weight_label"
-        app:layout_constraintTop_toTopOf="@+id/weight_label" />
+        app:layout_constraintTop_toTopOf="@+id/weight_label"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/weight_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Weight (kg):"
+        android:text="@string/weight_kg"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/height_label"
         app:layout_constraintTop_toBottomOf="@+id/height_label" />
 
@@ -121,30 +139,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Gender:"
+        android:text="@string/gender"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/age_label"
         app:layout_constraintTop_toBottomOf="@+id/age_label" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/activity_level_spinner"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:entries="@array/txtActivityLevel"
         app:layout_constraintBottom_toBottomOf="@+id/activity_level_label"
         app:layout_constraintStart_toEndOf="@+id/activity_level_label"
-        app:layout_constraintTop_toTopOf="@+id/activity_level_label" />
+        app:layout_constraintTop_toTopOf="@+id/activity_level_label"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/objective_spinner"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:entries="@array/txtObjective"
         app:layout_constraintBottom_toBottomOf="@+id/objective_label"
         app:layout_constraintStart_toEndOf="@+id/objective_label"
-        app:layout_constraintTop_toTopOf="@+id/objective_label" />
+        app:layout_constraintTop_toTopOf="@+id/objective_label"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/height_editText"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -152,7 +175,9 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/height_label"
         app:layout_constraintStart_toEndOf="@+id/height_label"
-        app:layout_constraintTop_toTopOf="@+id/height_label" />
+        app:layout_constraintTop_toTopOf="@+id/height_label"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck"
+        android:autofillHints="" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -160,5 +185,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Save"
+        android:background="@drawable/btn_bg"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/objective_spinner"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
