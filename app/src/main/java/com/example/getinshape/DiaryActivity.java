@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class DiaryActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<String> food_name, serving_size, calories, timestamp;
+    ArrayList<String> food_name, serving_size, calories;
+    ArrayList<Long> timestamp;
     DBHelper db;
 
     DBHelperUser dbUser;
@@ -87,7 +88,7 @@ public class DiaryActivity extends AppCompatActivity {
         Cursor result = db.getUserData();
 
         while (result.moveToNext()) {
-            timestamp.add(result.getString(0));
+            timestamp.add(result.getLong(0));
             food_name.add(result.getString(1));
             serving_size.add(result.getString(2));
             calories.add(result.getString(3));

@@ -12,16 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList food_id, serving_id, calories_id, timestamp_id;
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    long millis;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
 
     public RecyclerAdapter(Context context, ArrayList food_id, ArrayList serving_id, ArrayList calories_id, ArrayList timestamp_id) {
         this.context = context;
@@ -46,7 +50,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.food_id.setText(StringUtils.capitalize(String.valueOf(food_id.get(position)).replace("\"", "")));
         holder.serving_id.setText(String.valueOf(serving_id.get(position)) + " g");
         holder.calories_id.setText(String.valueOf(calories_id.get(position)) + " kcal");
-        holder.timestamp_id.setText(String.valueOf(timestamp_id.get(position)));
+        millis = (Long)timestamp_id.get(position);
+        Date resultDate = new Date(millis);
+        holder.timestamp_id.setText(String.valueOf(sdf.format(resultDate)));
     }
 
     @Override

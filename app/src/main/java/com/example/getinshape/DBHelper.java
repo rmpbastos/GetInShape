@@ -15,8 +15,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table user_diary(local_date_time TEXT primary key, food_name TEXT, " +
-                "serving_size_g NUMERIC(8,2), calories NUMERIC(8,2))");
+        db.execSQL("create Table user_diary(local_date_time INTEGER PRIMARY KEY, food_name TEXT, " +
+                "serving_size_g REAL, calories REAL)");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     //Insert data to table
-    public Boolean insertUserData(String local_date_time, String food_name,
+    public Boolean insertUserData(long local_date_time, String food_name,
                                   double serving_size_g, double calories) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

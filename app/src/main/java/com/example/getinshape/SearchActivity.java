@@ -23,9 +23,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,7 @@ public class SearchActivity extends AppCompatActivity {
 
     //TRY CURRENTTIMEMILLIS
     long millis;
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
     private RequestQueue queue;
 
@@ -114,7 +117,7 @@ public class SearchActivity extends AppCompatActivity {
                             public void onClick(View v) {
 
                                 //Insert the food searched into the database
-                                Boolean checkInsertData = db.insertUserData(localDateTimeNow.toString(),
+                                Boolean checkInsertData = db.insertUserData(millis,
                                         food_name, serving_size_g, calories);
                                 if (checkInsertData == true) {
                                     Toast.makeText(SearchActivity.this, "New entry inserted!", Toast.LENGTH_SHORT).show();
@@ -169,14 +172,18 @@ public class SearchActivity extends AppCompatActivity {
             food_name = foodArray[0];
             serving_size_g = Double.parseDouble(foodArray[2]);
             calories = Double.parseDouble(foodArray[1]);
-            localDateTimeNow = LocalDateTime.now();
-//            millis = System.currentTimeMillis();
+//            localDateTimeNow = LocalDateTime.now();
+            millis = System.currentTimeMillis();
 
             //Display data
             foodTextView.setText(StringUtils.capitalize(food_name.replace("\"", "")));
             servingSizeTextView.setText(String.valueOf(serving_size_g) + " g");
             calorieTextView.setText(String.valueOf(calories) + " kcal");
-            dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
+//            dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
+            Date resultDate = new Date(millis);
+            dateTextView.setText(sdf.format(resultDate));
+
+
         } catch (NullPointerException e) {
             e.printStackTrace();
             Toast.makeText(SearchActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
