@@ -14,14 +14,14 @@ public class DBHelperUser extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table user_details(id INTEGER PRIMARY KEY AUTOINCREMENT, user_name TEXT, " +
+        db.execSQL("CREATE TABLE user_details(id INTEGER PRIMARY KEY AUTOINCREMENT, user_name TEXT, " +
                 "user_age INTEGER, user_gender TEXT, user_height INTEGER, user_weight REAL, " +
                 "user_activity_level TEXT, user_objective TEXT, recommended_calorie_intake REAL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop Table if exists user_details");
+        db.execSQL("DROP TABLE IF EXISTS user_details");
     }
 
     public Boolean insertUserDetails(String name, int age, String gender, int height, double weight,
@@ -47,7 +47,7 @@ public class DBHelperUser extends SQLiteOpenHelper {
     //Get data from table
     public Cursor getUserRecommendedIntake() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select recommended_calorie_intake from user_details " +
+        Cursor cursor = db.rawQuery("SELECT recommended_calorie_intake FROM user_details " +
                 "where id = 1", null);
         return cursor;
     }

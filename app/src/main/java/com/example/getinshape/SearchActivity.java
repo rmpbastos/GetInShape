@@ -50,11 +50,11 @@ public class SearchActivity extends AppCompatActivity {
     LocalDateTime localDateTimeNow;
 
     //Set up date format to be displayed
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    //TRY CURRENTTIMEMILLIS
+    //Store the date in milliseconds
     long millis;
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
 
     private RequestQueue queue;
 

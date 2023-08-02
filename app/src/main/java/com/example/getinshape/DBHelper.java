@@ -9,19 +9,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
+
+    SQLiteDatabase db;
+
+    private static final String TABLE_NAME = "USER_DIARY";
+
     public DBHelper(Context context) {
         super(context, "FoodData.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create Table user_diary(local_date_time INTEGER PRIMARY KEY, food_name TEXT, " +
+        db.execSQL("CREATE TABLE " + TABLE_NAME + "(local_date_time INTEGER PRIMARY KEY, food_name TEXT, " +
                 "serving_size_g REAL, calories REAL)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("drop Table if exists user_diary");
+        db.execSQL("DROP TABLE IF EXISTS user_diary");
     }
 
 
@@ -43,12 +48,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Delete data from table
-    public Boolean deleteUserData(String local_date_time) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user_diary where local_date_time = ?",
-                new String[] {local_date_time});
+    public Boolean deleteUserData(long local_date_time) {
+        db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE local_date_time = ?",
+                new String[] {String.valueOf(local_date_time)});
         if (cursor.getCount() > 0) {
-            long result = db.delete("user_diary", "local_date_time=?", new String[] {local_date_time});
+            long result = db.delete(TABLE_NAME, "local_date_time=?",
+                    new String[] {String.valueOf(local_date_time)});
             if (result == -1) {
                 return false;
             } else {
@@ -59,17 +65,34 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
+//    public Boolean deleteUserData(String local_date_time) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * FROM user_diary WHERE local_date_time = ?",
+//                new String[] {local_date_time});
+//        if (cursor.getCount() > 0) {
+//            long result = db.delete("user_diary", "local_date_time=?", new String[] {local_date_time});
+//            if (result == -1) {
+//                return false;
+//            } else {
+//                return true;
+//            }
+//        } else {
+//            return false;
+//        }
+//    }
+
     //Get data from table
     public Cursor getUserData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user_diary", null);
+        db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         return cursor;
     }
 
     //Get total calorie intake
     public Cursor getCalorieIntake() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select sum(calories) from user_diary", null);
+        db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT SUM(calories) FROM " + TABLE_NAME, null);
         return cursor;
     }
 
