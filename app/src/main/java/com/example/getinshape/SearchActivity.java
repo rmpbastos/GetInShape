@@ -50,6 +50,9 @@ public class SearchActivity extends AppCompatActivity {
     //Set up date format to be displayed
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
+    //TRY CURRENTTIMEMILLIS
+    long millis;
+
     private RequestQueue queue;
 
     @Override
@@ -167,6 +170,7 @@ public class SearchActivity extends AppCompatActivity {
             serving_size_g = Double.parseDouble(foodArray[2]);
             calories = Double.parseDouble(foodArray[1]);
             localDateTimeNow = LocalDateTime.now();
+//            millis = System.currentTimeMillis();
 
             //Display data
             foodTextView.setText(StringUtils.capitalize(food_name.replace("\"", "")));
