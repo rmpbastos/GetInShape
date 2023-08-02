@@ -28,11 +28,10 @@ public class DiaryActivity extends AppCompatActivity {
     RecyclerView.Adapter adapter;
 
 
-//    private TextView diaryFood, diaryServing, diaryCalories, diaryDate;
+    //    private TextView diaryFood, diaryServing, diaryCalories, diaryDate;
     private TextView calorie_targetTV, calories_eaten_todayTV, calories_remainingTV;
 
     private String calorie_target_str, calories_eaten_str;
-
 
 
     @Override
@@ -57,64 +56,147 @@ public class DiaryActivity extends AppCompatActivity {
         calorie_targetTV = findViewById(R.id.calorie_targetTV);
         calories_remainingTV = findViewById(R.id.calories_remainingTV);
 
-        loadData();
+        try {
+            loadData();
 
-        loadCalorieIntake();
+            loadCalorieIntake();
 
-        loadRecommendedIntake();
+            loadRecommendedIntake();
 
-        double calories_remaining = Double.parseDouble(calorie_target_str) - Double.parseDouble(calories_eaten_str);
-        String calories_remaining_str = String.format("%.2f", calories_remaining);
-        calories_remainingTV.setText(calories_remaining_str);
+            double calories_remaining = Double.parseDouble(calorie_target_str) - Double.parseDouble(calories_eaten_str);
+            String calories_remaining_str = String.format("%.2f", calories_remaining);
+            calories_remainingTV.setText(calories_remaining_str);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            Toast.makeText(DiaryActivity.this, "Oops, the diary is empty", Toast.LENGTH_LONG).show();
+        }
+//        loadData();
+//
+//        loadCalorieIntake();
+//
+//        loadRecommendedIntake();
+//
+//        double calories_remaining = Double.parseDouble(calorie_target_str) - Double.parseDouble(calories_eaten_str);
+//        String calories_remaining_str = String.format("%.2f", calories_remaining);
+//        calories_remainingTV.setText(calories_remaining_str);
     }
 
     public void loadData() {
 
         //Retrieve the data from the database
         Cursor result = db.getUserData();
-        if(result.getCount() == 0) {
-            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
-            return;
+
+        while (result.moveToNext()) {
+            timestamp.add(result.getString(0));
+            food_name.add(result.getString(1));
+            serving_size.add(result.getString(2));
+            calories.add(result.getString(3));
         }
-        else {
-            while(result.moveToNext()) {
-                timestamp.add(result.getString(0));
-                food_name.add(result.getString(1));
-                serving_size.add(result.getString(2));
-                calories.add(result.getString(3));
-            }
-        }
+
+//        if (result.getCount() == 0) {
+//            Toast.makeText(DiaryActivity.this, "No entry found (user data)", Toast.LENGTH_SHORT).show();
+//            return;
+//        } else {
+//            while (result.moveToNext()) {
+//                timestamp.add(result.getString(0));
+//                food_name.add(result.getString(1));
+//                serving_size.add(result.getString(2));
+//                calories.add(result.getString(3));
+//            }
+//        }
+
+//        try {
+//            if(result.getCount() == 0) {
+//                Toast.makeText(DiaryActivity.this, "No entry found (user data)", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            else {
+//                while(result.moveToNext()) {
+//                    timestamp.add(result.getString(0));
+//                    food_name.add(result.getString(1));
+//                    serving_size.add(result.getString(2));
+//                    calories.add(result.getString(3));
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(DiaryActivity.this, "Sorry, no diary found! (user data)", Toast.LENGTH_LONG).show();
+//        }
     }
 
     private void loadCalorieIntake() {
         //Retrieve the data from the database
         Cursor result = db.getCalorieIntake();
-        if(result.getCount() == 0) {
-            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
-            return;
+
+        while (result.moveToNext()) {
+            calories_eaten_todayTV.setText(result.getString(0));
+            calories_eaten_str = result.getString(0);
         }
-        else {
-            while(result.moveToNext()) {
-                calories_eaten_todayTV.setText(result.getString(0));
-                calories_eaten_str = result.getString(0);
-            }
-        }
+
+//        if (result.getCount() == 0) {
+//            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
+//            return;
+//        } else {
+//            while (result.moveToNext()) {
+//                calories_eaten_todayTV.setText(result.getString(0));
+//                calories_eaten_str = result.getString(0);
+//            }
+//        }
+
+//        try {
+//            if(result.getCount() == 0) {
+//                Toast.makeText(DiaryActivity.this, "No entry found (calorie intake)", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            else {
+//                while(result.moveToNext()) {
+//                    calories_eaten_todayTV.setText(result.getString(0));
+//                    calories_eaten_str = result.getString(0);
+//                }
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            Toast.makeText(DiaryActivity.this, "Sorry, no diary found! (calorie intake)", Toast.LENGTH_LONG).show();
+//        }
     }
 
-    private void  loadRecommendedIntake() {
+    private void loadRecommendedIntake() {
         //Retrieve the data from the database
         Cursor result = dbUser.getUserRecommendedIntake();
-        if(result.getCount() == 0) {
-            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
-            return;
+
+        while (result.moveToNext()) {
+            calorie_targetTV.setText(result.getString(0));
+            calorie_target_str = result.getString(0);
         }
-        else {
-            while(result.moveToNext()) {
-                calorie_targetTV.setText(result.getString(0));
-                calorie_target_str = result.getString(0);
-            }
-        }
+
+//        if(result.getCount() == 0) {
+//            Toast.makeText(DiaryActivity.this, "No entry found", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        else {
+//            while(result.moveToNext()) {
+//                calorie_targetTV.setText(result.getString(0));
+//                calorie_target_str = result.getString(0);
+//            }
+//        }
+
+//        try {
+//            if(result.getCount() == 0) {
+//                Toast.makeText(DiaryActivity.this, "No entry found (recommended calorie intake)", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            else {
+//                while(result.moveToNext()) {
+//                    calorie_targetTV.setText(result.getString(0));
+//                    calorie_target_str = result.getString(0);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Toast.makeText(DiaryActivity.this, "Sorry, no diary found! (recommended calorie intake)", Toast.LENGTH_LONG).show();
+//        }
+
+
+
     }
-
-
 }

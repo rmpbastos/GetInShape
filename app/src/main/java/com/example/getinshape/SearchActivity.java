@@ -39,6 +39,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private String query;
 
+
     DBHelper db;
 
     String food_name;
@@ -102,39 +103,7 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        try {
-                            //String manipulation
-                            response = response.replace("{\"items\": [{", "");
-                            response = response.replace("}]}", "");
-
-                            //Create a food Array
-                            String[] foodArray = new String[12];
-
-                            //Split the string by commas
-                            String elements[] = response.split(",");
-
-                            //Iterate the elements and add the values to the array
-                            for (int i = 0; i < elements.length; i++) {
-                                //Split the data by colon to separate keys and values
-                                String splitElements[] = elements[i].split(":");
-                                String value = splitElements[1].trim();
-                                foodArray[i] = value;
-                            }
-
-                            food_name = foodArray[0];
-                            serving_size_g = Double.parseDouble(foodArray[2]);
-                            calories = Double.parseDouble(foodArray[1]);
-                            localDateTimeNow = LocalDateTime.now();
-
-                            //Display data
-                            foodTextView.setText(StringUtils.capitalize(food_name.replace("\"", "")));
-                            servingSizeTextView.setText(String.valueOf(serving_size_g) + " g");
-                            calorieTextView.setText(String.valueOf(calories) + " kcal");
-                            dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SearchActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
-                        }
+                        displayFood(response);
 
                         //Add food to diary
                         add_button.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +141,42 @@ public class SearchActivity extends AppCompatActivity {
         //Add the request to the Request Queue
         queue.add(stringRequest);
 
+    }
+
+    private void displayFood(String response) {
+        try {
+            //String manipulation
+            response = response.replace("{\"items\": [{", "");
+            response = response.replace("}]}", "");
+
+            //Create a food Array
+            String[] foodArray = new String[12];
+
+            //Split the string by commas
+            String elements[] = response.split(",");
+
+            //Iterate the elements and add the values to the array
+            for (int i = 0; i < elements.length; i++) {
+                //Split the data by colon to separate keys and values
+                String splitElements[] = elements[i].split(":");
+                String value = splitElements[1].trim();
+                foodArray[i] = value;
+            }
+
+            food_name = foodArray[0];
+            serving_size_g = Double.parseDouble(foodArray[2]);
+            calories = Double.parseDouble(foodArray[1]);
+            localDateTimeNow = LocalDateTime.now();
+
+            //Display data
+            foodTextView.setText(StringUtils.capitalize(food_name.replace("\"", "")));
+            servingSizeTextView.setText(String.valueOf(serving_size_g) + " g");
+            calorieTextView.setText(String.valueOf(calories) + " kcal");
+            dateTextView.setText(dateTimeFormatter.format(localDateTimeNow));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(SearchActivity.this, "Sorry, food not found!\nPlease try again.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void openDiaryActivity() {
